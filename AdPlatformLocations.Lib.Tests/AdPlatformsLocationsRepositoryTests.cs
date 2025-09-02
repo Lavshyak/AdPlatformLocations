@@ -99,4 +99,18 @@ public class AdPlatformsLocationsRepositoryTests
         Assert.Equal(((string[]) ["Яндекс.Директ", "Крутая реклама"]).Order(),
             _repository.GetPlatformNames("/ru/svrd").Order());
     }
+    
+    [Fact]
+    public void Works7()
+    {
+        _repository.ReInit([
+            new PlatformNameAndLocationPaths("Яндекс.Директ", ["/ru"]),
+            new PlatformNameAndLocationPaths("Крутая реклама", ["/ru/svrd"]),
+            new PlatformNameAndLocationPaths("Газета уральских москвичей", ["/ru/msk", "/ru/permobl", "/ru/chelobl"]),
+        ]);
+        Assert.Equal(((string[]) ["Яндекс.Директ", "Крутая реклама"]).Order(),
+            _repository.GetPlatformNames("/ru/svrd/revda").Order());
+        Assert.Equal(((string[]) ["Яндекс.Директ", "Крутая реклама"]).Order(),
+            _repository.GetPlatformNames("/ru/svrd/revda/dom23456").Order());
+    }
 }

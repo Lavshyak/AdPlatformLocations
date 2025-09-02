@@ -24,6 +24,21 @@ public class AdPlatformsLocationsRepository
         }
         else
         {
+            // в таком случае можно использовать дерево. но можно еще в FrozenDictionary<string, FrozenSet<string>> добавить все возможные локации.
+            var locationPath1 = locationPath;
+            while (true)
+            {
+                var lastSlashIndex = locationPath1.LastIndexOf('/');
+                if (lastSlashIndex == 0)
+                {
+                    break;
+                }
+                locationPath1 = locationPath1.Substring(0, lastSlashIndex);
+                if (_root.TryGetValue(locationPath1, out var platformNames1))
+                {
+                    return platformNames1;
+                }
+            }
             return [];
         }
     }
