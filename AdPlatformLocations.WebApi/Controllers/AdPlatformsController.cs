@@ -17,7 +17,7 @@ public class AdPlatformsController : ControllerBase
         _validatorNormalizer = validatorNormalizer;
     }
 
-    [ProducesResponseType<string>(StatusCodes.Status200OK)]
+    [ProducesResponseType<IEnumerable<string>>(StatusCodes.Status200OK)]
     [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
     [HttpGet]
     public Results<Ok<IEnumerable<string>>, BadRequest<string>> Get(string location)
