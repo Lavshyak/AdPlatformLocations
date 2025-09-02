@@ -1,6 +1,6 @@
 ﻿services:
   lavshyak.adplatformlocations.webapi:
-    image: lavshyak.adplatformlocations.webapi:0.0.1
+    image: lavshyak.adplatformlocations.webapi:0.0.2
     build:
       context: .
       dockerfile: AdPlatformLocations.WebApi/Dockerfile
@@ -8,6 +8,7 @@
       - "6464:80"
     environment:
       - ASPNETCORE_URLS=http://*:80
+      - ADD_AND_USE_SWAGGER_AND_OPENAPI=true
   
   lavshyak.adplatformlocations.lib.tests:
     image: mcr.microsoft.com/dotnet/sdk:9.0

@@ -10,16 +10,19 @@ builder.Services.AddSingleton<AdPlatformsAndLocationsFromStreamParser>();
 builder.Services.AddSingleton<AdPlatformsLocationsRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen(options =>
+if (builder.Configuration.GetValue<bool>("ADD_AND_USE_SWAGGER_AND_OPENAPI") == true)
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-});
+    builder.Services.AddOpenApi();
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    });
+}
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (builder.Configuration.GetValue<bool>("ADD_AND_USE_SWAGGER_AND_OPENAPI") == true)
 {
     app.MapOpenApi();
     app.UseForwardedHeaders(new ForwardedHeadersOptions
